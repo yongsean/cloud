@@ -89,7 +89,7 @@
 							<!-- <td style="text-align: left;"> <strong>Job Requirement</strong> <br /> {{ job.jobRequirement.replace('-', '<br><br>-') | safe }}</td> -->
 							<td style="text-align: left;">
 								<strong>Job Requirement</strong>
-								<div id="job-requirement" class="scrollable-div collapse">
+								<div id="job-requirement" class="scrollable-div collapse" style="margin-left: 10px;">
 									{{ job.jobRequirement.replace('-', '\n' +  '- ') | safe }}
 								</div>
 							</td>
