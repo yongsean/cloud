@@ -26,8 +26,14 @@
 			<a href="/logoutCompany">Logout</a>
 		</div>
 	</nav>
-
-
+	
+	<style>
+		.scrollable-div {
+			max-height: 150px;
+			overflow-y: auto;
+			white-space: pre-wrap; /* To maintain line breaks */
+		}
+	</style>
 </head>
 
 <body>
@@ -83,8 +89,8 @@
 							<!-- <td style="text-align: left;"> <strong>Job Requirement</strong> <br /> {{ job.jobRequirement.replace('-', '<br><br>-') | safe }}</td> -->
 							<td style="text-align: left;">
 								<strong>Job Requirement</strong>
-								<div id="job-requirement" class="collapse">
-									{{ job.jobRequirement.replace('-', '<br><br>-') | safe }}
+								<div id="job-requirement" class="scrollable-div collapse">
+									{{ job.jobRequirement.replace('-', '\n') | safe }}
 								</div>
 								<a href="javascript:void(0);" onclick="toggleCollapse('job-requirement')">See More</a>
 							</td>
@@ -121,16 +127,7 @@
 		</div>
 
 	</fieldset>
-	<script>
-		function toggleCollapse(elementId) {
-			var element = document.getElementById(elementId);
-			if (element.style.display === "none" || element.style.display === "") {
-				element.style.display = "block";
-			} else {
-				element.style.display = "none";
-			}
-		}
-	</script>
+	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="{{ url_for('static', filename='script/master.js') }}"></script>
 </body>
