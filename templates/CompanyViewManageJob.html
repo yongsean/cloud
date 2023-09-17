@@ -79,8 +79,8 @@
 								{{ job.jobType }}</td>
 
 							<td> <strong>Require level</strong> <br /> {{ job.qualificationLevel }}</td>
-							<td> <strong>Job Description</strong> <br /> {{ job.jobDesc}}</td>
-							<td> <strong>Job Requirement</strong> <br /> {{ job.jobRequirement }}</td>
+							<td> <strong>Job Description</strong> <br /> {{ job.jobDesc.replace('-', '<br>') | safe }}</td>
+							<td> <strong>Job Requirement</strong> <br /> {{ job.jobRequirement.replace('-', '<br>') | safe }}</td>
 							<td> <strong>Location</strong> <br /> {{ job.jobLocation}}</td>
 							<td> <strong>Salary</strong> <br /> {{ job.salary }}</td>
 							<td> <strong>Num. of opening</strong> <br /> {{ job.numOfOpening}}</td>
