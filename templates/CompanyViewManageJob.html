@@ -90,7 +90,7 @@
 							<td style="text-align: left;">
 								<strong>Job Requirement</strong>
 								<div id="job-requirement" class="scrollable-div collapse">
-									{{ job.jobRequirement.replace('-', '\n') | safe }}
+									{{ job.jobRequirement.replace('-', '\n' +  '-') | safe }}
 								</div>
 							</td>
 							<td> <strong>Location</strong> <br /> {{ job.jobLocation}}</td>
@@ -109,12 +109,6 @@
 							</td>
 						</tr>
 						{% endfor %}
-						<!-- <tr>
-								<td colspan="8" style="text-align: center;">
-									<button type="submit" name="button-filter"
-										style="background-color: #54585d;">Pick</button>
-								</td>
-							</tr> -->
 						{% else %}
 						<tr>
 							<td colspan="8" style="text-align: center;">No job found</td>
