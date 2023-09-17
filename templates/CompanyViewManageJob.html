@@ -90,7 +90,7 @@
 							<td style="text-align: left;">
 								<strong>Job Requirement</strong>
 								<div id="job-requirement" class="scrollable-div collapse">
-									{{ job.jobRequirement.replace('-', '\n' +  '-') | safe }}
+									{{ job.jobRequirement.replace('-', '\n' +  '- ') | safe }}
 								</div>
 							</td>
 							<td> <strong>Location</strong> <br /> {{ job.jobLocation}}</td>
