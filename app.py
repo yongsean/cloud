@@ -53,6 +53,10 @@ def logoutCompany():
 def register_company():
     return render_template('RegisterCompany.html')
 
+@app.route('/login_student')
+def login_student():
+    return render_template('LoginStudent.html')
+
 @app.route('/publish_job')
 def publish_job():
     data_company = passCompSession().get_json()
