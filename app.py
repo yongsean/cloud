@@ -129,7 +129,7 @@ def companyViewApplication():
                 for jobI in jobInfo:
                     jobType = jobI[2]
                     jobPosition = jobI[3]
-                    numOfOpening = jobI[9]
+                    numOfOperating = jobI[9]
 
                 application_data = {
                         "application_id" : applicationId,
@@ -146,7 +146,7 @@ def companyViewApplication():
                         "stud_cohort": stud_cohort,
                         "jobType": jobType,
                         "jobPosition" : jobPosition,
-                        "numOfOpening" : numOfOpening,
+                        "numOfOperating" : numOfOperating,
                         # "stud_resume": response,
                     }
                 company_application_list.append(application_data)  
@@ -186,7 +186,7 @@ def compViewResume():
 @app.route('/compUpdateJobStatus', methods=['POST'])
 def compUpdateJobStatus():
     job_id = request.form['close_application_button']
-    update_sql = "UPDATE job SET numOfOpening = 0 WHERE jobId=%s"
+    update_sql = "UPDATE job SET numOfOperating = 0 WHERE jobId=%s"
     cursor = db_conn.cursor()
     
     cursor.execute(update_sql, job_id)
@@ -216,7 +216,7 @@ def compUpdateJobStatus():
                 "jobRequirement" : jobData[6],
                 "jobLocation" : jobData[7],
                 "salary" : f"RM {jobData[8]:.2f}",
-                "numOfOpening" : jobData[9],
+                "numOfOperating" : jobData[9],
                 "industry" : jobData[11],
                 }           
             job_list.append(job_data)  
@@ -242,9 +242,9 @@ def companyViewManageJob():
     if active_filter == 'All':
         select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}'"
     elif active_filter == 'Opening':
-        select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}' AND numOfOpening != 0"  
+        select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}' AND numOfOperating != 0"  
     else:
-        select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}' AND numOfOpening = 0"
+        select_sql = f"SELECT * FROM job WHERE company = '{currentCompany}' AND numOfOperating = 0"
     
     cursor = db_conn.cursor()
     
@@ -264,7 +264,7 @@ def companyViewManageJob():
                 "jobRequirement" : jobData[6],
                 "jobLocation" : jobData[7],
                 "salary" : f"RM {jobData[8]:.2f}",
-                "numOfOpening" : jobData[9],
+                "numOfOperating" : jobData[9],
                 "industry" : jobData[11],
                 }           
             job_list.append(job_data)  
@@ -289,7 +289,7 @@ def compApproveJobApp():
     for jobData in jobInfo:
         jobId = jobData[0]
 
-    update_sql = f"UPDATE job SET numOfOpening = numOfOpening - 1 WHERE jobId= '{jobId}'"
+    update_sql = f"UPDATE job SET numOfOperating = numOfOperating - 1 WHERE jobId= '{jobId}'"
     cursor = db_conn.cursor()
     cursor.execute(update_sql)
     db_conn.commit()

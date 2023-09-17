@@ -83,7 +83,7 @@
 							<td>{{ job.publishDate }}</td>
 							<td>{{ job.jobPosition }} <br />
 								{{ job.jobType }}</td>
-
+								
 							<td> <strong>Require level</strong> <br /> {{ job.qualificationLevel }}</td>
 							<td> <strong>Job Description</strong> <br /> {{ job.jobDesc }}</td>
 							<!-- <td style="text-align: left;"> <strong>Job Requirement</strong> <br /> {{ job.jobRequirement.replace('-', '<br><br>-') | safe }}</td> -->
@@ -95,7 +95,7 @@
 							</td>
 							<td> <strong>Location</strong> <br /> {{ job.jobLocation}}</td>
 							<td> <strong>Salary</strong> <br /> {{ job.salary }}</td>
-							<td> <strong>Num. of opening</strong> <br /> {{ job.numOfOpening}}</td>
+							<td> <strong>Num. of opening</strong> <br /> {{ job.numOfOperating}}</td>
 							
 							<td>
 								<!-- <button class="actionBtn" style="margin-top: 10px;" type="submit" name="" value="{{ job.jobId }}">Edit</button> -->
@@ -103,7 +103,7 @@
 								<!-- <button class="rejectBtn" type="submit" name="close_application_button"
 									value="{{ job.jobId }}">Close Application</button> -->
 								<button class="rejectBtn" type="submit" name="close_application_button" style="margin-top: 10px;"
-									value="{{ job.jobId }}" {% if job.numOfOpening==0 %}disabled{% endif %}>
+									value="{{ job.jobId }}" {% if job.numOfOperating==0 %}disabled{% endif %}>
 									Close Application
 								</button>
 							</td>
