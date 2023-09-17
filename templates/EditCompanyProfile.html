@@ -1,38 +1,195 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Edit Company Profile</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}"/>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Register Company</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/company.css')}}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+	<nav>
+		<div class="homeNav">
+			<a href="/"></a>
+		</div>
+		<div class="otherNav">
+			<div class="dropdown">
+				<a class="dropdown-button" onclick="toggleDropdown()">Job</a>
+				<div id="dropdownOptions" class="dropdown-content">
+					<a href="/publish_job">Create New</a>
+					<a href="/companyViewManageJob">View / Manage</a>
+				</div>
+			</div>
+			<a href="/companyViewApplication">View / Manage Application</a>
+			<a href="#">Edit Profile/ Account</a>
+			<a href="/logoutCompany">Logout</a>
+		</div>
+	</nav>
 </head>
-<center>
-	<font color="black" size="4" style="font-family: avenir">
 
-		<h1 style="color: DodgerBlue">Employee Database</h1>
+<body>
+	<div class="logedIn">
+		<i class="fas fa-user-circle"></i>
+		<label>
+			{{name}}
+		</label>
+	</div>
 
-		<body bgcolor="lightgrey">
+	<form action="/updateCompanyProfile" autocomplete="on" method="POST" enctype="multipart/form-data">
+		<div class="h1">
+			<h1>
+				Edit Company Profile
+			</h1>
+		</div>
+		<div class="msg" style="color: rgb(1, 154, 65);">{{ msg }}</div>
+		<fieldset>
+			<div class="container">
+				<div class="title">
+					<legend>Company Information</legend>
+				</div>
+				<div>
+					<table>
+						<tr>
+							<td>
+								<label class="label">Name</label>
+							</td>
+							<td>
+								<textarea class="inputText" type="text" name="company_name" autofocus size="40"
+									placeholder="Enter company name">{{ compName }}</textarea>
+							</td>
+						</tr>
 
-			<form action="/addemp" autocomplete="on" method = "POST" enctype="multipart/form-data">
+						<tr>
+							<td>
+								<label class="label">Company Logo</label>
+							</td>
+							<td>
+								<div class="comp-image-container">
+									<img id="companyLogo" src="{{ compLogo }}" alt="">
+								</div>
+								<input class="uploadCompLogo" type=file id="imageUpload" accept="image/*" name="company_image_file">
+								<!-- name="compLogo" -->
+							</td>
+						</tr>
 
-				<button type="submit" formaction="/getemp" style="background: grey; height: 45px; width: 200px; color:white; font:oblique;">GET EMPLOYEE INFORMATION</button><br><br>
+						<tr>
+							<td>
+								<label class="label">About Company</label>
+							</td>
+							<td>
+								<textarea class="inputText" type="text" name="about_company"
+									placeholder="Enter information about the company">{{ compAbout }}</textarea>
+							</td>
+						</tr>
 
-		  		CompanyName:<br> <input style="height:25px;font-size:14pt; color:grey;" type="number" name="emp_id" autofocus size="40"><br><br>
+						<tr>
+							<td>
+								<label class="label">Phone Number (+60)</label>
+							</td>
+							<td>
+								<textarea class="inputText" type="text" name="company_phone"
+									placeholder="Enter phone number of the company">{{ compPhone }}</textarea>
+							</td>
+						</tr>
 
-		  		:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="first_name" ><br><br>
+						<tr>
+							<td>
+								<label class="label">Email</label>
+							</td>
+							<td>
+								<textarea class="inputText" type="text" name="company_email"
+									placeholder="Enter email of the company">{{ compEmail }}</textarea>
+							</td>
+						</tr>
 
-		  		Last Name:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="last_name"><br><br>
+						<tr>
+							<td>
+								<label class="label">Address</label>
+							</td>
+							<td>
+								<textarea class="inputText" type="text" name="company_address"
+									placeholder="Enter address of the company">{{compAddress}}</textarea>
+							</td>
+						</tr>
 
-		  		Primary Skills:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="pri_skill"><br><br>
+						<tr>
+							<td></td>
+							<td>
+								<button class="submitBtn" type="submit">Update</button>
+							</td>
+						</tr>
+					</table>
 
-		  		Location:<br> <input style="height:25px;font-size:14pt;color:grey;" type="text" name="location"><br><br>
 
-		  		Image: <input type=file name="emp_image_file" style="height:25px;font-size:14pt;color:grey;"> <br><br>
+				</div>
 
-		  		<button type="submit" style="background: grey; height: 45px; width: 200px; color: white; size: 5; font:oblique;">UPDATE DATABASE</button>
+			</div>
 
-			</form>
-            <a href="/about">About Us</a>
-		</body>
+		</fieldset>
+	</form>
 
-	</font>
-</center>
+
+	<form action="/updateCompanyPassword" autocomplete="on" method="POST" enctype="multipart/form-data">
+		<div class="h1">
+			<h1>
+				Change Password
+			</h1>
+		</div>
+
+		<div>
+			<fieldset>
+				<div class="container">
+					<div>
+						<table style="margin-top: 10px;">
+							<!-- <tr>
+								<td>
+									<label class="label">Current Password</label>
+								</td>
+								<td>
+									<input class="inputText" type="password" name="current_paassword"
+										placeholder="Enter current password">
+								</td>
+							</tr> -->
+
+							<tr>
+								<td>
+									<label class="label">New Password</label>
+								</td>
+								<td>
+									<input class="inputText" type="password" name="new_password"
+										placeholder="Enter new password">
+								</td>
+							</tr>
+
+							<!-- <tr>
+								<td>
+									<label class="label">Confirm Password</label>
+								</td>
+								<td>
+									<input class="inputText" type="password" name="confirm_password"
+										placeholder="Enter confirm password">
+								</td>
+							</tr> -->
+							<tr>
+								<td></td>
+								<td>
+									<button class="chgPasswdBtn" type="submit">Change Password</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	</form>
+
+
+
+
+
+	<script src="{{ url_for('static', filename='script/master.js') }}"></script>
+</body>
+
+
 </html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>View / Manage Job</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/companyApplicationTable.css')}}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+	<nav>
+		<div class="homeNav">
+			<a href="/"></a>
+		</div>
+		<div class="otherNav">
+			<div class="dropdown">
+				<a class="dropdown-button" onclick="toggleDropdown()">Job</a>
+				<div id="dropdownOptions" class="dropdown-content">
+					<a href="/publish_job">Create New</a>
+					<a href="#">View / Manage</a>
+				</div>
+			</div>
+			<a href="/companyViewApplication">View / Manage Application</a>
+			<a href="/manage_company_profile">Edit Profile/ Account</a>
+			<a href="/logoutCompany">Logout</a>
+		</div>
+	</nav>
+
+
+</head>
+
+<body>
+	<div class="logedIn">
+		<i class="fas fa-user-circle"></i>
+		<label>
+			{{name}}
+		</label>
+	</div>
+
+
+	<div class="h1">
+		<h1>
+			Job Management
+		</h1>
+	</div>
+
+	<div class="filterStatus">
+		<form action="/filterJobOpenStatus" autocomplete="on" method="POST" enctype="multipart/form-data">
+			<input type="submit" value="All" name="filter" {% if active_filter=='All' %}class="active" {% endif %}>
+			<input type="submit" value="Opening" name="filter" {% if active_filter=='Opening' %}class="active" {% endif
+				%}>
+			<input type="submit" value="Closed" name="filter" {% if active_filter=='Closed' %}class="active" {%
+				endif %}>
+		</form>
+	</div>
+
+	<fieldset style="margin-left: 50px; margin-right: 50px;">
+		<div class="container">
+			<form action="/compUpdateJobStatus" autocomplete="on" method="POST" enctype="multipart/form-data">
+				<table class="jobDisplay-table">
+					<thead>
+						<tr class="jobDisplay-head">
+							<td style="width: 50px;">num.</td>
+							<td class="sortable" data-column="publishDate">Job Published Date</td>
+							<td>Job</td>
+							<td colspan="6">Other Information</td>
+							<td>Action</td>
+						</tr>
+					</thead>
+
+					<tbody class="jobDisplay-body">
+						{% if jobData %}
+						{% for job in jobData %}
+						<tr>
+							<td style="width: 50px;">{{ loop.index }}</td>
+							<td>{{ job.publishDate }}</td>
+							<td>{{ job.jobPosition }} <br />
+								{{ job.jobType }}</td>
+
+							<td> <strong>Require level</strong> <br /> {{ job.qualificationLevel }}</td>
+							<td> <strong>Job Description</strong> <br /> {{ job.jobDesc}}</td>
+							<td> <strong>Job Requirement</strong> <br /> {{ job.jobRequirement }}</td>
+							<td> <strong>Location</strong> <br /> {{ job.jobLocation}}</td>
+							<td> <strong>Salary</strong> <br /> {{ job.salary }}</td>
+							<td> <strong>Num. of opening</strong> <br /> {{ job.numOfOpening}}</td>
+							
+							<td>
+								<!-- <button class="actionBtn" style="margin-top: 10px;" type="submit" name="" value="{{ job.jobId }}">Edit</button> -->
+								<!-- <br/> -->
+								<!-- <button class="rejectBtn" type="submit" name="close_application_button"
+									value="{{ job.jobId }}">Close Application</button> -->
+								<button class="rejectBtn" type="submit" name="close_application_button" style="margin-top: 10px;"
+									value="{{ job.jobId }}" {% if job.numOfOpening==0 %}disabled{% endif %}>
+									Close Application
+								</button>
+							</td>
+						</tr>
+						{% endfor %}
+						<!-- <tr>
+								<td colspan="8" style="text-align: center;">
+									<button type="submit" name="button-filter"
+										style="background-color: #54585d;">Pick</button>
+								</td>
+							</tr> -->
+						{% else %}
+						<tr>
+							<td colspan="8" style="text-align: center;">No job found</td>
+						</tr>
+						{% endif %}
+					</tbody>
+				</table>
+			</form>
+		</div>
+
+	</fieldset>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="{{ url_for('static', filename='script/master.js') }}"></script>
+</body>
+
+
+</html>

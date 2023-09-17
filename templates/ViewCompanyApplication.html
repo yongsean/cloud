@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>View / Manage Job Application</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/companyApplicationTable.css')}}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css')}}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+	<nav>
+		<div class="homeNav">
+			<a href="/"></a>
+		</div>
+		<div class="otherNav">
+			<div class="dropdown">
+				<a class="dropdown-button" onclick="toggleDropdown()">Job</a>
+				<div id="dropdownOptions" class="dropdown-content">
+					<a href="/publish_job">Create New</a>
+					<a href="/companyViewManageJob">View / Manage</a>
+				</div>
+			</div>
+			<a href="#">View / Manage Application</a>
+			<a href="/manage_company_profile">Edit Profile/ Account</a>
+			<a href="/logoutCompany">Logout</a>
+		</div>
+	</nav>
+</head>
+
+<body>
+	<div class="logedIn">
+		<i class="fas fa-user-circle"></i>
+		<label>
+			{{name}}
+		</label>
+	</div>
+
+
+	<div class="h1" style="margin-left: 0px;">
+		<h1 style="margin-left: 50px;">
+			Job Application
+		</h1>
+	</div>
+
+	<div class="filterStatus">
+		<form action="/filterJobApp" autocomplete="on" method="POST" enctype="multipart/form-data">
+			<input type="submit" value="All" name="filter" {% if active_filter=='All' %}class="active" {% endif %}>
+			<input type="submit" value="Pending" name="filter" {% if active_filter=='Pending' %}class="active" {% endif
+				%}>
+			<input type="submit" value="Approved" name="filter" {% if active_filter=='Approved' %}class="active" {%
+				endif %}>
+			<input type="submit" value="Rejected" name="filter" {% if active_filter=='Rejected' %}class="active" {%
+				endif %}>
+		</form>
+	</div>
+
+	<fieldset style="margin-left: 50px; margin-right: 50px;">
+		<div class="container">
+			<table class="jobDisplay-table">
+				<thead>
+					<tr class="jobDisplay-head">
+						<td style="width: 50px;">num.</td>
+						<td>Job Application Date</td>
+						<td>Applied Job</td>
+						<td colspan="4">Student</td>
+						<td>Resume</td>
+						<td>Status</td>
+						<td>Action</td>
+					</tr>
+				</thead>
+
+				<tbody class="jobDisplay-body">
+					{% if applicationData %}
+					{% for application in applicationData %}
+					<tr>
+						<td style="width: 50px;">{{ loop.index }}</td>
+						<td>
+							{{ application.application_datetime }}
+						</td>
+						<td>
+							{{application.jobPosition}} <br />
+							{{application.jobType}}
+						</td>
+						<td>{{ application.stud_id }}</td>
+						<td>{{ application.stud_name}} <br />
+							<!-- {{application.stud_gender}} -->
+							{% if application.stud_gender == 'F' %}
+							<span class="iconify" data-icon="ic:baseline-girl" style="width: 80px;
+							height: 30px; color: rgb(188, 31, 165);">F</span>
+							{% else %}
+							<span class="iconify" data-icon="ic:outline-boy" style="width: 80px;
+							height: 30px; color: rgb(83, 114, 238);">M</span>
+							{% endif %}
+						</td>
+						<td><iconify-icon icon="ph:phone-light"></iconify-icon> {{ application.stud_phone }}</td>
+						<td>{{ application.stud_cohort}}</td>
+						<td>
+							<form action="/compViewResume" autocomplete="on" method="POST"
+								enctype="multipart/form-data">
+								<button class="viewResumeBtn" type="submit" name="view_resume_btn"
+									value="{{ application.stud_id }}">View Resume</button>
+							</form>
+						</td>
+
+						<td>{{ application.application_status}}</td>
+						<td>
+							<form action="/compApproveJobApp" autocomplete="on" method="POST"
+								enctype="multipart/form-data">
+								<button class="approveBtn" type="submit" name="approve_btn"
+									value="{{ application.application_id }}" {% if application.application_status
+									!="pending" or application.numOfOpening==0%}disabled{% endif %}>Approve</button>
+							</form>
+							<br />
+							<form action="/compRejectJobApp" autocomplete="on" method="POST"
+								enctype="multipart/form-data">
+								<button class="rejectBtn" type="submit" name="reject_btn"
+									value="{{ application.application_id }}" {% if application.application_status
+									!="pending" or application.numOfOpening==0 %}disabled{% endif %}>Reject</button>
+							</form>
+						</td>
+					</tr>
+					{% endfor %}
+					{% else %}
+					<tr>
+						<td colspan="8" style="text-align: center;">No job application found</td>
+					</tr>
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+
+	</fieldset>
+
+	<script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+	<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+	<script src="{{ url_for('static', filename='script/master.js') }}"></script>
+</body>
+
+
+</html>
