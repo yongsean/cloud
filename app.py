@@ -515,13 +515,14 @@ def addCompanyRegistration():
                         s3_location,
                         custombucket,
                         comp_image_file_name_in_s3)
-
+                    
+                    print("Company registration request submitted...")
+                    return render_template('home.html')
                 except Exception as e:
                     return str(e)
         
         finally:
             cursor.close()
-            print("Company registration request submitted...")
             return render_template('home.html')
     
     except Exception as e:
