@@ -1653,8 +1653,7 @@ def displayAllJobs():
 
                     
                     # Generate the S3 image URL using custombucket and customregion
-                    company_image_file_name_in_s3 = "comp-id-" + \
-                        str(company_id)+"_image_file"
+                    company_image_file_name_in_s3 = "company/"+"comp-id-" + str(company_id) + "_image_file"
                     s3 = boto3.client('s3', region_name=customregion)
                     bucket_name = custombucket
 
