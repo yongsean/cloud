@@ -2098,7 +2098,7 @@ def LoginLec():
                 except Exception as e:
                     return str(e)
 
-                select_sql = "SELECT s.*, c.name, ca.status, co.startDate, co.endDate, r.* FROM student s LEFT JOIN companyApplication ca ON s.studentId = ca.student LEFT JOIN job j ON ca.job = j.jobId LEFT JOIN company c ON j.company = c.companyId LEFT JOIN cohort co ON s.cohort = co.cohortId LEFT JOIN report r ON s.studentId = r.student WHERE s.supervisor = %s ORDER BY s.level, co.startDate DESC, s.studentId, r.reportId"
+                select_sql = "SELECT s.*, c.name, co.startDate, co.endDate, r.reportId, r.submissionDate, r.reportType, r.status, r.late, r.remark FROM student s LEFT JOIN (SELECT ca1.student, ca1.job FROM companyApplication ca1 WHERE ca1.status = 'approved') approved_ca ON s.studentId = approved_ca.student LEFT JOIN job j ON approved_ca.job = j.jobId LEFT JOIN company c ON j.company = c.companyId LEFT JOIN (SELECT r1.student, r1.reportId, r1.submissionDate, r1.reportType, r1.status, r1.late, r1.remark FROM report r1 LEFT JOIN (SELECT student, job FROM companyApplication WHERE status = 'approved') ca2 ON r1.student = ca2.student) r ON s.studentId = r.student LEFT JOIN cohort co ON s.cohort = co.cohortId WHERE s.supervisor = %s ORDER BY s.level, co.startDate DESC, s.studentId, r.reportId"
 
                 cursor.execute(select_sql, (lecturer[0],))
                 raw_students = cursor.fetchall()
@@ -2176,7 +2176,7 @@ def LecHome():
                 except Exception as e:
                     return str(e)
 
-                select_sql = "SELECT s.*, c.name, ca.status, co.startDate, co.endDate, r.* FROM student s LEFT JOIN companyApplication ca ON s.studentId = ca.student LEFT JOIN job j ON ca.job = j.jobId LEFT JOIN company c ON j.company = c.companyId LEFT JOIN cohort co ON s.cohort = co.cohortId LEFT JOIN report r ON s.studentId = r.student WHERE s.supervisor = %s ORDER BY s.level, co.startDate DESC, s.studentId, r.reportId"
+                select_sql = "SELECT s.*, c.name, co.startDate, co.endDate, r.reportId, r.submissionDate, r.reportType, r.status, r.late, r.remark FROM student s LEFT JOIN (SELECT ca1.student, ca1.job FROM companyApplication ca1 WHERE ca1.status = 'approved') approved_ca ON s.studentId = approved_ca.student LEFT JOIN job j ON approved_ca.job = j.jobId LEFT JOIN company c ON j.company = c.companyId LEFT JOIN (SELECT r1.student, r1.reportId, r1.submissionDate, r1.reportType, r1.status, r1.late, r1.remark FROM report r1 LEFT JOIN (SELECT student, job FROM companyApplication WHERE status = 'approved') ca2 ON r1.student = ca2.student) r ON s.studentId = r.student LEFT JOIN cohort co ON s.cohort = co.cohortId WHERE s.supervisor = %s ORDER BY s.level, co.startDate DESC, s.studentId, r.reportId"
 
                 cursor.execute(select_sql, (lecturer[0],))
                 raw_students = cursor.fetchall()
@@ -3377,6 +3377,32 @@ def approveCompany():
             cursorReject.close()
 
         return render_template('companyRejectOutput.html', company_list=name_list)
+
+################################################ PORTFOLIO #######################################################
+@app.route("/portfolio")
+def portfoliocss():
+    return render_template('OurTeam.html')
+
+@app.route("/portfolio-css")
+def portfoliocss():
+    return render_template('PortfolioCSS.html')
+
+@app.route("/portfolio-gys")
+def portfoliogys():
+    return render_template('PortfolioGYS.html')
+
+@app.route("/portfolio-hhm")
+def portfoliohhm():
+    return render_template('PortfolioHHM.html')
+
+@app.route("/portfolio-kxy")
+def portfoliokxy():
+    return render_template('PortfolioKXY.html')
+
+@app.route("/portfolio-lkl")
+def portfoliolkl():
+    return render_template('PortfolioLKL.html')
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
