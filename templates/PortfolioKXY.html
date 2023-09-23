@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Ku Xin Yau | </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Onepage Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+	<script
+		type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
+	<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/move-top.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/easing.js') }}"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1200);
+			});
+		});
+	</script>
+	<style>
+		.skills > div {
+			background-color: #ffc0cb;
+		}
+
+		.about-imag img {
+    		border: 2px solid pink;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="content">
+		<div class="about-section" id="about" id="about">
+			<div class="container">
+				<div class="about-header">
+					<h3>about</h3>
+					<div class="about-imag">
+						<img src="{{ url_for('static', filename='images/kxy.png') }}" alt="" />
+					</div>
+					<div class="about-text">
+						<p>Hello and welcome. I'm Ku Xin Yau, a passionate and results-driven software engineer with a deep love for creating innovative 
+							solutions to complex problems. With a strong foundation in computer science and years of hands-on experience, I have honed 
+							my skills in developing robust, scalable, and user-centric software applications. </p>
+						<p>My journey in the world of software engineering 
+							began with a burning curiosity for technology and a determination to make a positive impact through code. Over the years, I've 
+							had the privilege to work on a diverse range of projects, from web and mobile applications to backend systems, all of which 
+							have contributed to my growth as an engineer.</p>
+						<p>One of my core strengths is my ability to collaborate effectively within cross-functional teams, fostering open communication and 
+							an environment of continuous learning. I thrive on challenges and take pride in my problem-solving skills, always seeking out new 
+							technologies and best practices to stay at the forefront of the ever-evolving tech landscape.</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="about-sectiongrids">
+					<div class="col-md-6 about-leftgrid">
+						<div class="polls">
+							<div class="poll">
+								<div class="poll-desc">
+									<h4>HTML/CSS</h4>
+								</div>
+								<div class="percentage">
+									<p>85%</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="skills">
+								<div style="width:85%"> </div>
+							</div>
+						</div>
+						<div class="polls">
+							<div class="poll">
+								<div class="poll-desc">
+									<h4>Ui/Ux</h4>
+								</div>
+								<div class="percentage">
+									<p>75%</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="skills">
+								<div style="width:75%"> </div>
+							</div>
+						</div>
+						<div class="polls">
+							<div class="poll">
+								<div class="poll-desc">
+									<h4>C</h4>
+								</div>
+								<div class="percentage">
+									<p>70%</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="skills">
+								<div style="width:70%"> </div>
+							</div>
+						</div>
+						<div class="polls">
+							<div class="poll">
+								<div class="poll-desc">
+									<h4>Flask/Django</h4>
+								</div>
+								<div class="percentage">
+									<p>60%</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="skills">
+								<div style="width:60%"> </div>
+							</div>
+						</div>
+
+					</div>
+					<div class="col-md-6 about-rightgrid">
+						<div class="polls">
+							<div class="poll">
+								<div class="poll-desc">
+									<h4>ASP.NET</h4>
+								</div>
+								<div class="percentage">
+									<p>80%</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="skills">
+								<div style="width:80%"> </div>
+							</div>
+						</div>
+						<div class="polls">
+							<div class="poll">
+								<div class="poll-desc">
+									<h4>MySQL/Microsoft SQL Server</h4>
+								</div>
+								<div class="percentage">
+									<p>85%</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="skills">
+								<div style="width:85%"> </div>
+							</div>
+						</div>
+						<div class="polls">
+							<div class="poll">
+								<div class="poll-desc">
+									<h4>Amazon Web Services (AWS)</h4>
+								</div>
+								<div class="percentage">
+									<p>65%</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="skills">
+								<div style="width:65%"> </div>
+							</div>
+						</div>
+						<div class="polls">
+							<div class="poll">
+								<div class="poll-desc">
+									<h4>Cisco</h4>
+								</div>
+								<div class="percentage">
+									<p>65%</p>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="skills">
+								<div style="width:65%"> </div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<!-- about-section-ends -->
+		<!-- portfolio-section-ends -->
+		<div class="services-section" id="services" style="background-color: whitesmoke;">
+			<div class="container">
+				<div class="services-header">
+					<h3>services</h3>
+					<p>With a wealth of experience in the tech industry, I'm excited to offer you a range of specialized services 
+						designed to bring your software projects to life. My services are driven by a commitment to excellence, a 
+						deep understanding of cutting-edge technologies, and a track record of delivering results. Whether you're 
+						a startup in need of a dynamic web application, a business looking to streamline operations with custom 
+						software, or an individual with a unique project idea, I'm here to collaborate with you. </p>
+				</div>
+				<div class="services-sectiongrids">
+					<div class="col-md-4 services-grid">
+						<img src="{{ url_for('static', filename='images/webdevelopment.jpg') }}" alt="" style="width: 128px; border: 2px solid pink; border-radius: 64px;" />
+						<h4>Web Development</h4>
+						<p>Specialize in building websites and web applications. This can involve front-end development and back-end development.</p>
+					</div>
+					<div class="col-md-4 services-grid">
+						<img src="{{ url_for('static', filename='images/database.png') }}" alt="" style="width: 128px; border: 2px solid pink; border-radius: 64px;" />
+						<h4>Database Design and Management</h4>
+						<p>Offer expertise in designing and maintaining databases, including data modeling, optimization, and security.</p>
+					</div>
+					<div class="col-md-4 services-grid">
+						<img src="{{ url_for('static', filename='images/uiux.png') }}" alt="" style="width: 128px; border: 2px solid pink; border-radius: 64px;" />
+						<h4>UI/UX Design</h4>
+						<p>Combine your engineering skills with design expertise to create user-friendly and visually appealing interfaces.</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<!-- services-section-ends -->
+	</div>
+
+
+</body>
+
+</html>

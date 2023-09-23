@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecturer Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+                body {
+            margin: 0px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        nav {
+            display: flex;
+            top: 0;
+            right: 0;
+            background-color: #1f1f1f;
+            padding: 15px;
+            justify-content: space-between;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #b9b9b9;
+            font-size: 16px;
+            margin-left: 20px;
+            /* Add margin to space out the links */
+            transition: color 0.3s;
+            /* Smooth color transition on hover */
+        }
+
+        .footerRow {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 21px;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-left: 190px;
+            margin-right: 190px;
+        }
+
+        footer {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.4;
+            margin-left: 190px;
+            margin-right: 190px;
+        }
+
+        .team-big-container {
+            color: #111111;
+            background-color: #ffffff;
+            border-radius: 30px;
+            border: 10px solid #ffffff;
+            margin: 20px;
+        }
+
+        .team-container {
+            border-radius: 20px !important;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            font-family: Poppins;
+        }
+
+        .name {
+            font-weight: 700;
+            margin: 21px auto 0;
+            color: #2c4776 !important;
+            word-wrap: break-word;
+            position: relative;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .role {
+            letter-spacing: 2px;
+            font-size: 1.125rem;
+            margin: 17px auto 0;
+            word-wrap: break-word;
+            position: relative;
+            text-align: center;
+            font-weight: 400;
+            color: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="homeNav">
+            <a href="/">Home</a>
+        </div>
+        <div class="otherNav">
+            <a href="#">Company</a>
+            <a href="#">Uni Supervisor</a>
+            <a href="/login_admin">Admin</a>
+            <a href="#">Student</a>
+        </div>
+    </nav>
+
+    <h1 style="color: #2c4776; text-align: center;padding: 30px; font-size: 50px; font-weight: 800;">Our Amazing Team</h1>
+    <div style="color: #111111; background-color: #8fc0c3;">
+        <div style="margin: auto; padding: 50px 170px;">
+            <div
+                style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: center;">
+                <div class="team-big-container">
+                    <a href="/portfolio-css" class="team-container">
+                        <img src="{{ url_for('static', filename='images/css.png') }}" style="height: 350px; width: 270px;" />
+                        <div class="name">
+                            Cheong Soo Siew
+                        </div>
+                        <div class="role">
+                            Software Engineer
+                        </div>
+                    </a>
+                </div>
+                <div class="team-big-container">
+                    <a href="/portfolio-gys" class="team-container">
+                        <img src="{{ url_for('static', filename='images/gys.png') }}" style="height: 350px; width: 270px;" />
+                        <div class="name">
+                            Gwee Yong Sean
+                        </div>
+                        <div class="role">
+                            Software Engineer
+                        </div>
+                    </a>
+                </div>
+                <div class="team-big-container">
+                    <a href="/portfolio-hhm" class="team-container">
+                        <img src="{{ url_for('static', filename='images/hhm.png') }}" style="height: 350px; width: 270px;" />
+                        <div class="name">
+                            Ho Hong Meng
+                        </div>
+                        <div class="role">
+                            Software Engineer
+                        </div>
+                    </a>
+                </div>
+                <div class="team-big-container">
+                    <a href="/portfolio-kxy" class="team-container">
+                        <img src="{{ url_for('static', filename='images/kxy.png') }}" style="height: 350px; width: 270px;" />
+                        <div class="name">
+                            Ku Xin Yau
+                        </div>
+                        <div class="role">
+                            Software Engineer
+                        </div>
+                    </a>
+                </div>
+                <div class="team-big-container">
+                    <a href="/portfolio-lkl" class="team-container">
+                        <img src="{{ url_for('static', filename='images/lkl.png') }}" style="height: 350px; width: 270px;" />
+                        <div class="name">
+                            Loke Kok Lam
+                        </div>
+                        <div class="role">
+                            Software Engineer
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+    <footer>
+        <p>© 2023 - TAR UMT FOCS ITP</p>
+    </footer>
+</body>
+
+</html>

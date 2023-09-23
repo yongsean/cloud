@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Software Engineer Portfolio</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Software Engineer, Web Development, Programming, Portfolio" />
+	<script type="application/x-javascript">
+		addEventListener("load", function() {
+			setTimeout(hideURLbar, 0);
+		}, false);
+
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel='stylesheet' type='text/css' />
+	<link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+	<!-- Custom CSS for the software engineer portfolio -->
+	<style>
+		body {
+			background-color: #f0f0f0;
+		}
+
+		.about-section {
+			background-color: #333;
+			color: #fff;
+		}
+
+		.about-header h3 {
+			color: #66ccff;
+		}
+
+		.services-section {
+			background-color: #66ccff;
+			color: #333;
+		}
+
+		.services-header h3 {
+			color: #fff;
+		}
+
+		.services-grid {
+			background-color: #fff;
+			color: #333;
+		}
+	</style>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/move-top.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/easing.js') }}"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			$(".scroll").click(function (event) {
+				event.preventDefault();
+				$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1200);
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="content">
+		<div class="about-section" id="about">
+			<div class="container">
+				<div class="about-header">
+					<h3>About Me</h3>
+					<div class="about-imag">
+						<img src="{{ url_for('static', filename='images/lkl.png') }}" alt="Profile Picture" />
+					</div>
+					<div class="about-text">
+						<p>Loke Kok Lam is a motivated and dedicated student who has a strong interest in the 
+							evolving field of cloud computing. He is currently working towards a degree in software 
+							engineering and has devoted his academic career to learning the nuances of cloud 
+							computing. He is knowledgeable about cloud infrastructure, deployment, and management 
+							because to his never-ending curiosity and dedication to learning, which have inspired 
+							him to investigate numerous cloud platforms and services. He actively seeks out 
+							opportunities to put his knowledge to use and contribute to cutting-edge cloud-based 
+							solutions since he aims to one day be a pioneer in the field of cloud computing. 
+							With a firm understanding of cloud ideas and a desire to stay current on new 
+							developments, he is well-positioned to have a substantial impact on the rapidly 
+							changing cloud industry.
+						</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<!-- Add your skills and experience here -->
+			</div>
+		</div>
+		<!-- about-section-ends -->
+
+		<!-- services-section-ends -->
+		<div class="services-section" id="services">
+			<div class="container">
+				<div class="services-header">
+					<h3>Services</h3>
+					<p>I offer a range of services to meet your software development needs. Here are some of the
+						services I provide:</p>
+				</div>
+				<div class="services-sectiongrids">
+					<div class="col-md-4 services-grid">
+						<img src="{{ url_for('static', filename='images/lkl-service1.png') }}" alt="Web Development" />
+						<h4>Web Development</h4>
+						<p>I specialize in building responsive and user-friendly websites using the latest web
+							technologies.</p>
+					</div>
+					<div class="col-md-4 services-grid">
+						<img src="{{ url_for('static', filename='images/lkl-service2.png') }}" alt="Programming" />
+						<h4>Programming</h4>
+						<p>From front-end to back-end, I excel in writing clean and efficient code to bring your
+							ideas to life.</p>
+					</div>
+					<div class="col-md-4 services-grid">
+						<img src="{{ url_for('static', filename='images/lkl-service3.png') }}" alt="Software Architecture" />
+						<h4>Software Architecture</h4>
+						<p>I can design scalable and robust software architectures that meet your business
+							requirements.</p>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<!-- services-section-ends -->
+	</div>
+</body>
+
+</html>
