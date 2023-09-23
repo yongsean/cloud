@@ -3372,7 +3372,7 @@ def approveCompany():
 
 ################################################ PORTFOLIO #######################################################
 @app.route("/portfolio")
-def portfoliocss():
+def portfolio():
     return render_template('OurTeam.html')
 
 @app.route("/portfolio-css")
