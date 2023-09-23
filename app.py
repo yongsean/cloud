@@ -2084,7 +2084,8 @@ def LoginLec():
                 session['loginLecturer'] = lecturer[0]
 
                 # Fetch the S3 image URL based on emp_id
-                lec_image_file_name_in_s3 = "lec-id-" + str(lecturer[0]) + "_image_file"
+                lec_image_file_name_in_s3 = "lec-id-" + \
+                    str(lecturer[0]) + "_image_file"
                 s3 = boto3.client('s3')
                 bucket_name = custombucket
 
