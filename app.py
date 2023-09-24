@@ -2067,7 +2067,7 @@ def LecLoginPage():
     return render_template('LecturerLogin.html')
 
 
-@app.route("/loginlec", methods=['GET', 'POST'])
+@app.route("/loginlec", methods=['GET','POST'])
 def LoginLec():
     if request.method == 'POST':
         email = request.form['email']
@@ -2077,28 +2077,27 @@ def LoginLec():
         cursor = db_conn.cursor()
 
         try:
-            cursor.execute(select_sql, (email, password,))
+            cursor.execute(select_sql, (email,password,))
             lecturer = cursor.fetchone()
 
             if lecturer:
                 session['loginLecturer'] = lecturer[0]
 
                 # Fetch the S3 image URL based on emp_id
-                lec_image_file_name_in_s3 = "lec-id-" + \
-                    str(lecturer[0]) + "_image_file"
+                lec_image_file_name_in_s3 = "lec-id-" + str(lecturer[0]) + "_image_file"
                 s3 = boto3.client('s3')
                 bucket_name = custombucket
 
                 try:
                     response = s3.generate_presigned_url('get_object',
-                                                         Params={'Bucket': bucket_name,
-                                                                 'Key': lec_image_file_name_in_s3},
-                                                         ExpiresIn=1000)  # Adjust the expiration time as needed
+                                                 Params={'Bucket': bucket_name,
+                                                         'Key': lec_image_file_name_in_s3},
+                                                 ExpiresIn=1000)  # Adjust the expiration time as needed
 
                 except Exception as e:
                     return str(e)
 
-                select_sql = "SELECT s.*, c.name, ca.status, co.startDate, co.endDate, r.* FROM student s LEFT JOIN companyApplication ca ON s.studentId = ca.student LEFT JOIN job j ON ca.job = j.jobId LEFT JOIN company c ON j.company = c.companyId LEFT JOIN cohort co ON s.cohort = co.cohortId LEFT JOIN report r ON s.studentId = r.student WHERE s.supervisor = %s ORDER BY s.level, co.startDate DESC, s.studentId, r.reportId"
+                select_sql = "SELECT s.*, c.name, co.startDate, co.endDate, r.reportId, r.submissionDate, r.reportType, r.status, r.late, r.remark FROM student s LEFT JOIN (SELECT ca1.student, ca1.job FROM companyApplication ca1 WHERE ca1.status = 'approved') approved_ca ON s.studentId = approved_ca.student LEFT JOIN job j ON approved_ca.job = j.jobId LEFT JOIN company c ON j.company = c.companyId LEFT JOIN (SELECT r1.student, r1.reportId, r1.submissionDate, r1.reportType, r1.status, r1.late, r1.remark FROM report r1 LEFT JOIN (SELECT student, job FROM companyApplication WHERE status = 'approved') ca2 ON r1.student = ca2.student) r ON s.studentId = r.student LEFT JOIN cohort co ON s.cohort = co.cohortId WHERE s.supervisor = %s ORDER BY s.level, co.startDate DESC, s.studentId, r.reportId"
 
                 cursor.execute(select_sql, (lecturer[0],))
                 raw_students = cursor.fetchall()
@@ -2114,39 +2113,35 @@ def LoginLec():
                                 'name': row[1],
                                 'programme': row[8],
                                 'email': row[6],
-                                'gender': row[4],
-                                'hp': row[3],
-                                'level': row[7],
-                                'cohortId': row[10],
-                                'company': row[11],
-                                'compStatus': row[12],
-                                'startDate': row[13],
-                                'endDate': row[14],
+                                'gender' : row[4],
+                                'hp' : row[3],
+                                'level' : row[7],
+                                'cohortId' : row[10],
+                                'company' : row[11],
+                                'startDate': row[12],
+                                'endDate': row[13],
                                 'reports': []
                             }
-                        students[studId]['reports'].append(
-                            {'reportType': row[17], 'reportStatus': row[18], 'reportLate': row[19]})
-
-                    return render_template('LecturerHome.html', lecturer=lecturer, students=students, noReport=len(students[raw_students[0][0]]['reports']), image_url=response)
-
+                        students[studId]['reports'].append({'reportType' : row[16], 'reportStatus' : row[17], 'reportLate' : row[18]})
+                    
+                    return render_template('LecturerHome.html', lecturer=lecturer, students=students, image_url=response)
+                
                 else:
                     return render_template('LecturerHome.html', lecturer=lecturer, students=raw_students, image_url=response)
 
         except Exception as e:
             return str(e)
 
-        finally:
+        finally:   
             cursor.close()
-
+        
     return render_template('LecturerLogin.html', msg="Access Denied : Invalid email or password")
-
 
 @app.route("/logoutlec")
 def LogoutLec():
     if 'loginLecturer' in session:
         session.pop('loginLecturer', None)
     return render_template('home.html')
-
 
 @app.route("/lecHome")
 def LecHome():
@@ -2162,21 +2157,20 @@ def LecHome():
 
             if lecturer:
                 # Fetch the S3 image URL based on emp_id
-                lec_image_file_name_in_s3 = "lec-id-" + \
-                    str(lecturer[0]) + "_image_file"
+                lec_image_file_name_in_s3 = "lec-id-" + str(lecturer[0]) + "_image_file"
                 s3 = boto3.client('s3')
                 bucket_name = custombucket
 
                 try:
                     response = s3.generate_presigned_url('get_object',
-                                                         Params={'Bucket': bucket_name,
-                                                                 'Key': lec_image_file_name_in_s3},
-                                                         ExpiresIn=1000)  # Adjust the expiration time as needed
+                                                 Params={'Bucket': bucket_name,
+                                                         'Key': lec_image_file_name_in_s3},
+                                                 ExpiresIn=1000)  # Adjust the expiration time as needed
 
                 except Exception as e:
                     return str(e)
 
-                select_sql = "SELECT s.*, c.name, ca.status, co.startDate, co.endDate, r.* FROM student s LEFT JOIN companyApplication ca ON s.studentId = ca.student LEFT JOIN job j ON ca.job = j.jobId LEFT JOIN company c ON j.company = c.companyId LEFT JOIN cohort co ON s.cohort = co.cohortId LEFT JOIN report r ON s.studentId = r.student WHERE s.supervisor = %s ORDER BY s.level, co.startDate DESC, s.studentId, r.reportId"
+                select_sql = "SELECT s.*, c.name, co.startDate, co.endDate, r.reportId, r.submissionDate, r.reportType, r.status, r.late, r.remark FROM student s LEFT JOIN (SELECT ca1.student, ca1.job FROM companyApplication ca1 WHERE ca1.status = 'Approved') approved_ca ON s.studentId = approved_ca.student LEFT JOIN job j ON approved_ca.job = j.jobId LEFT JOIN company c ON j.company = c.companyId LEFT JOIN (SELECT r1.student, r1.reportId, r1.submissionDate, r1.reportType, r1.status, r1.late, r1.remark FROM report r1 LEFT JOIN (SELECT student, job FROM companyApplication WHERE status = 'Approved') ca2 ON r1.student = ca2.student) r ON s.studentId = r.student LEFT JOIN cohort co ON s.cohort = co.cohortId WHERE s.supervisor = %s ORDER BY s.level, co.startDate DESC, s.studentId, r.reportId"
 
                 cursor.execute(select_sql, (lecturer[0],))
                 raw_students = cursor.fetchall()
@@ -2192,28 +2186,26 @@ def LecHome():
                                 'name': row[1],
                                 'programme': row[8],
                                 'email': row[6],
-                                'gender': row[4],
-                                'hp': row[3],
-                                'level': row[7],
-                                'cohortId': row[10],
-                                'company': row[11],
-                                'compStatus': row[12],
-                                'startDate': row[13],
-                                'endDate': row[14],
+                                'gender' : row[4],
+                                'hp' : row[3],
+                                'level' : row[7],
+                                'cohortId' : row[10],
+                                'company' : row[11],
+                                'startDate': row[12],
+                                'endDate': row[13],
                                 'reports': []
                             }
-                        students[studId]['reports'].append(
-                            {'reportType': row[17], 'reportStatus': row[18], 'reportLate': row[19]})
+                        students[studId]['reports'].append({'reportType' : row[16], 'reportStatus' : row[17], 'reportLate' : row[18]})
                 else:
                     return render_template('LecturerHome.html', lecturer=lecturer, students=raw_students, image_url=response)
         except Exception as e:
             return str(e)
 
-        finally:
+        finally:   
             cursor.close()
-
-        return render_template('LecturerHome.html', lecturer=lecturer, students=students, noReport=len(students[raw_students[0][0]]['reports']), image_url=response)
-
+        
+        return render_template('LecturerHome.html', lecturer=lecturer, students=students, image_url=response)
+    
     else:
         return render_template('LecturerLogin.html')
 
@@ -3377,6 +3369,32 @@ def approveCompany():
             cursorReject.close()
 
         return render_template('companyRejectOutput.html', company_list=name_list)
+
+################################################ PORTFOLIO #######################################################
+@app.route("/portfolio")
+def portfolio():
+    return render_template('OurTeam.html')
+
+@app.route("/portfolio-css")
+def portfoliocss():
+    return render_template('PortfolioCSS.html')
+
+@app.route("/portfolio-gys")
+def portfoliogys():
+    return render_template('PortfolioGYS.html')
+
+@app.route("/portfolio-hhm")
+def portfoliohhm():
+    return render_template('PortfolioHHM.html')
+
+@app.route("/portfolio-kxy")
+def portfoliokxy():
+    return render_template('PortfolioKXY.html')
+
+@app.route("/portfolio-lkl")
+def portfoliolkl():
+    return render_template('PortfolioLKL.html')
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
